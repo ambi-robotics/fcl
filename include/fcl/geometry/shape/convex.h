@@ -39,15 +39,14 @@
 #ifndef FCL_SHAPE_CONVEX_H
 #define FCL_SHAPE_CONVEX_H
 
-#include <ostream>
 #include <memory>
+#include <ostream>
 #include <string>
 #include <vector>
 
 #include "fcl/geometry/shape/shape_base.h"
 
-namespace fcl
-{
+namespace fcl {
 
 /// @brief A convex polytope
 ///
@@ -81,10 +80,8 @@ namespace fcl
 ///
 /// @tparam S_  The scalar type; must be a valid Eigen scalar.
 template <typename S_>
-class FCL_EXPORT Convex : public ShapeBase<S_>
-{
-public:
-
+class FCL_EXPORT Convex : public ShapeBase<S_> {
+ public:
   using S = S_;
 
   // TODO(SeanCurtis-TRI): A huge shopping list of issues with this class are
@@ -111,7 +108,7 @@ public:
          int num_faces, const std::shared_ptr<const std::vector<int>>& faces,
          bool throw_if_invalid = false);
 
-  /// @brief Copy constructor 
+  /// @brief Copy constructor
   Convex(const Convex& other);
 
   ~Convex() = default;
@@ -153,7 +150,7 @@ public:
 
   /// @brief A point guaranteed to be on the interior of the convex polytope,
   /// used for collision.
-  const Vector3<S>& getInteriorPoint() const { return interior_point_; }
+  const Vector3<S>& getInteriorPoint() const { return this->aabb_center; }
 
   // Documentation inherited.
   Matrix3<S> computeMomentofInertia() const override;
@@ -164,8 +161,8 @@ public:
   // Documentation inherited.
   S computeVolume() const override;
 
-  /// @brief Gets the vertices of some convex shape which can bound this shape in
-  /// a specific configuration
+  /// @brief Gets the vertices of some convex shape which can bound this shape
+  /// in a specific configuration
   std::vector<Vector3<S>> getBoundVertices(const Transform3<S>& tf) const;
 
   /// @brief Reports a vertex in this convex polytope that lies farthest in the
@@ -183,10 +180,9 @@ public:
   /// @return The string representation of this instance.
   std::string representation(int precision = 20) const;
 
-  friend
-  std::ostream& operator<<(std::ostream& out, const Convex& convex) {
-    out << "Convex(v count: " << convex.vertices_->size() << ", f count: "
-        << convex.getFaceCount() << ")";
+  friend std::ostream& operator<<(std::ostream& out, const Convex& convex) {
+    out << "Convex(v count: " << convex.vertices_->size()
+        << ", f count: " << convex.getFaceCount() << ")";
     return out;
   }
 
@@ -281,7 +277,7 @@ Convex<S>::Convex(const Convex<S>& other) = default;
 using Convexf = Convex<float>;
 using Convexd = Convex<double>;
 
-} // namespace fcl
+}  // namespace fcl
 
 #include "fcl/geometry/shape/convex-inl.h"
 
