@@ -231,7 +231,6 @@ class FCL_EXPORT Convex : public ShapeBase<S_> {
   const std::shared_ptr<const std::vector<int>> faces_;
   // This is stored to support representation().
   const bool throw_if_invalid_{};
-  Vector3<S> interior_point_;
 
   /* The encoding of vertex adjacency in the mesh. The encoding is as follows:
    Entries [0, V-1] encode the location in `neighbors_` where the adjacency

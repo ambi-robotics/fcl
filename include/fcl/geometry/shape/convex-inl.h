@@ -68,13 +68,7 @@ Convex<S>::Convex(
                                   kMinVertCountForEdgeWalking} {
   assert(vertices != nullptr);
   assert(faces != nullptr);
-  // Compute an interior point. We're computing the mean point and *not* some
-  // alternative such as the centroid or bounding box center.
-  Vector3<S> sum = Vector3<S>::Zero();
-  for (const auto& vertex : *vertices_) {
-    sum += vertex;
-  }
-  interior_point_ = sum * (S)(1.0 / vertices_->size());
+  computeLocalAABB();
   FindVertexNeighbors();
   ValidateMesh(throw_if_invalid);
 }
